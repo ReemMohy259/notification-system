@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RabbitMQ Notification System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>User Registration</h1>
+
+    <div class="card">
+
+        <input
+                id="firstName"
+                type="text"
+                placeholder="First Name">
+
+        <input
+                id="lastName"
+                type="text"
+                placeholder="Last Name">
+
+        <input
+                id="email"
+                type="email"
+                placeholder="Email">
+
+        <input
+                id="phoneNumber"
+                type="text"
+                placeholder="Phone Number">
+
+        <button onclick="registerUser()">
+            Register
+        </button>
+
+        <p id="registerMessage"></p>
+
+    </div>
+
+    <hr>
+
+    <div class="card">
+
+        <button onclick="receiveNotification()">
+            Receive Latest Notification
+        </button>
+
+        <div id="notification" class="notification">
+
+            <h3>Notification</h3>
+
+            <p><strong>Name:</strong> <span id="name"></span></p>
+
+            <p><strong>Email:</strong> <span id="notificationEmail"></span></p>
+
+            <p><strong>Phone:</strong> <span id="phone"></span></p>
+
+            <p><strong>Registered At:</strong> <span id="registeredAt"></span></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

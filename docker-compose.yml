@@ -1,0 +1,100 @@
+version: "3.9"
+
+services:
+
+  mysql:
+
+    image: mysql:8.4
+
+    container_name: mysql
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: root
+
+      MYSQL_DATABASE: rabbitmq
+
+    ports:
+
+      - "3307:3306"
+    volumes:
+
+      - mysql_data:/var/lib/mysql
+
+  rabbitmq:
+
+    image: rabbitmq:management
+
+    container_name: rabbitmq
+
+    restart: always
+
+    environment:
+
+      RABBITMQ_DEFAULT_USER: root
+
+      RABBITMQ_DEFAULT_PASS: root
+
+    ports:
+
+      - "5672:5672"
+
+      - "15672:15672"
+
+  producer:
+
+    build:
+
+      context: ./registration-service
+
+    container_name: producer
+
+    depends_on:
+
+      - rabbitmq
+
+      - mysql
+
+    ports:
+
+      - "8080:8080"
+
+  consumer:
+
+    build:
+
+      context: ./email-service
+
+    container_name: consumer
+
+    depends_on:
+
+      - rabbitmq
+
+    ports:
+
+      - "8081:8081"
+
+  frontend:
+
+    build:
+
+      context: ./frontend
+
+    container_name: frontend
+
+    depends_on:
+
+      - producer
+
+      - consumer
+
+    ports:
+
+      - "80:80"
+
+volumes:
+
+  mysql_data:
