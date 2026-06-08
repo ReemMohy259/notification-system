@@ -4,72 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RabbitMQ Notification System</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="bg-grid" aria-hidden="true"></div>
 
-    <h1>User Registration</h1>
+<div class="layout">
 
-    <div class="card">
+    <header class="header">
+        <div class="header-logo">
+            <span class="logo-dot"></span>
+            <span class="logo-text">RabbitMQ Notification System</span>
+        </div>
+        <div class="header-badge">
+            <span class="pulse"></span>
+            live
+        </div>
+    </header>
 
-        <input
-                id="firstName"
-                type="text"
-                placeholder="First Name">
+    <main class="main">
 
-        <input
-                id="lastName"
-                type="text"
-                placeholder="Last Name">
+        <section class="panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <span class="panel-icon">&#10022;</span>
+                    <h2 class="panel-title">Register user</h2>
+                </div>
+                <p class="panel-subtitle">POST /api/register</p>
+            </div>
 
-        <input
-                id="email"
-                type="email"
-                placeholder="Email">
+            <div class="form-grid">
+                <div class="field">
+                    <label class="label" for="firstName">First name</label>
+                    <input class="input" id="firstName" type="text" placeholder="e.g. Reem">
+                </div>
+                <div class="field">
+                    <label class="label" for="lastName">Last name</label>
+                    <input class="input" id="lastName" type="text" placeholder="e.g. Mohy">
+                </div>
+                <div class="field field--full">
+                    <label class="label" for="email">Email address</label>
+                    <input class="input" id="email" type="email" placeholder="reem@example.com">
+                </div>
+                <div class="field field--full">
+                    <label class="label" for="phoneNumber">Phone number</label>
+                    <input class="input" id="phoneNumber" type="text" placeholder="01000000000">
+                </div>
+            </div>
 
-        <input
-                id="phoneNumber"
-                type="text"
-                placeholder="Phone Number">
+            <button class="btn btn--primary" onclick="registerUser()">
+                <span class="btn-text">Register &amp; publish event</span>
+                <span class="btn-arrow">&#8594;</span>
+            </button>
 
-        <button onclick="registerUser()">
-            Register
-        </button>
+            <div id="registerMessage" class="feedback" aria-live="polite"></div>
+        </section>
 
-        <p id="registerMessage"></p>
-
-    </div>
-
-    <hr>
-
-    <div class="card">
-
-        <button onclick="receiveNotification()">
-            Receive Latest Notification
-        </button>
-
-        <div id="notification" class="notification">
-
-            <h3>Notification</h3>
-
-            <p><strong>Name:</strong> <span id="name"></span></p>
-
-            <p><strong>Email:</strong> <span id="notificationEmail"></span></p>
-
-            <p><strong>Phone:</strong> <span id="phone"></span></p>
-
-            <p><strong>Registered At:</strong> <span id="registeredAt"></span></p>
-
+        <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-label">notifications</span>
+            <span class="divider-line"></span>
         </div>
 
-    </div>
+        <section class="panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <span class="panel-icon panel-icon--amber">&#9670;</span>
+                    <h2 class="panel-title">Latest notification</h2>
+                </div>
+                <p class="panel-subtitle">GET /notifications/latest</p>
+            </div>
+
+            <button class="btn btn--secondary" onclick="receiveNotification()">
+                <span class="btn-text">Fetch latest</span>
+                <span class="btn-arrow">&#8595;</span>
+            </button>
+
+            <div id="notification" class="notification-card" hidden>
+                <div class="notif-row">
+                    <span class="notif-label">Name</span>
+                    <span class="notif-value" id="name"></span>
+                </div>
+                <div class="notif-row">
+                    <span class="notif-label">Email</span>
+                    <span class="notif-value notif-value--accent" id="notificationEmail"></span>
+                </div>
+                <div class="notif-row">
+                    <span class="notif-label">Phone</span>
+                    <span class="notif-value" id="phone"></span>
+                </div>
+                <div class="notif-row">
+                    <span class="notif-label">Registered at</span>
+                    <span class="notif-value notif-value--mono" id="registeredAt"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <span class="panel-icon panel-icon--teal">&#9632;</span>
+                    <h2 class="panel-title">All notifications</h2>
+                </div>
+                <p class="panel-subtitle">GET /notifications</p>
+            </div>
+
+            <button class="btn btn--secondary" onclick="receiveAllNotifications()">
+                <span class="btn-text">Fetch all</span>
+                <span class="btn-arrow">&#8595;</span>
+            </button>
+
+            <div id="allNotificationsWrap" class="notif-list-wrap" hidden>
+                <div class="notif-list-meta">
+                    <span class="notif-count-label">Total</span>
+                    <span class="notif-count" id="notifCount">0</span>
+                </div>
+                <ul class="notif-list" id="allNotifications"></ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <span>Producer</span>
+        <span class="footer-sep">&#8250;</span>
+        <span class="footer-accent">RabbitMQ</span>
+        <span class="footer-sep">&#8250;</span>
+        <span>Consumer</span>
+    </footer>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
