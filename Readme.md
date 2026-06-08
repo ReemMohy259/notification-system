@@ -231,20 +231,29 @@ created_at
 
 # 📸 Screenshots
 
+## 📱Frontend View
+<img width="665" height="1079" alt="image" src="https://github.com/user-attachments/assets/c3c7eab9-cf1e-4a5c-a3e7-aac629432466" />
+
+---
+
 ## 🧾 1. Successful Registration
+<img width="631" height="485" alt="image" src="https://github.com/user-attachments/assets/3a7fbe90-eff8-40e8-b079-daf0d23975d3" />
 
 ---
 
 ## 📩 2. Notification Received
 
+<img width="634" height="836" alt="image" src="https://github.com/user-attachments/assets/8ef98325-f60c-4b8e-9c7a-bbc6fafb6fd4" />
 
 ---
 
 ## 🗄️ 3. MySQL Database Table
+<img width="1641" height="218" alt="Screenshot 2026-06-08 235535" src="https://github.com/user-attachments/assets/20578826-7f67-459b-a562-e3b551f36c7b" />
 
 ---
 
 ## 🐰 4. RabbitMQ Management Board
+<img width="1202" height="454" alt="image" src="https://github.com/user-attachments/assets/f766ec88-95f1-485b-938b-41e3f8f23ac0" />
 
 ---
 
